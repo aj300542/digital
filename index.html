@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>黑客帝国电脑屏幕</title>
+    <style>
+        @font-face {
+            font-family: 'DSEG07Modern';
+            src: url('fonts/DSEG7Modern-Light.woff2') format('woff2'),
+                 url('fonts/DSEG7Modern-Light.woff') format('woff'),
+                 url('fonts/DSEG7Modern-Light.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        /* 隐藏滚动条 */
+        ::-webkit-scrollbar {
+            display: none;
+        }
+    
+        /* 防止页面出现滚动抖动 */
+        html, body {
+            overflow: -moz-scrollbars-none;
+            -ms-overflow-style: none;
+        }
+
+        body {
+
+            font-size: 48px;
+            background-color: #000;
+            color: rgb(224, 175, 68);
+            font-family: 'DSEG07Modern', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        #container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    #code {
+    position: relative;
+    top: 50px; /* 调整垂直位置 */    
+    font-size: 54px;
+    text-align: center;
+    }
+
+    #code span {
+
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    border: 1px solid #835117;
+    border-radius: 50%;
+    margin: 0 20px;
+    animation: fall 1s linear infinite;
+    color: hsl(calc(360 * var(--i) / 6), 100%, 50%);
+    line-height: 100px;
+    text-align: center;
+    vertical-align: middle; 
+    }
+        
+
+        @keyframes fall {
+            from {
+                transform: translateY(-250px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(250px);
+                opacity: 1;
+            }
+        }
+
+        #time {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            padding: 40px;
+            font-size: 24px;
+            color: #fb7c00;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="code">
+            <span style="--i: 0;"></span>
+            <span style="--i: 1;"></span>
+            <span style="--i: 2;"></span>
+            <span style="--i: 3;"></span>
+            <span style="--i: 4;"></span>
+            <span style="--i: 5;"></span>
+            <span style="--i: 6;"></span>
+            <span style="--i: 5;"></span>
+
+        </div>
+    </div>
+
+    <div id="time"></div>
+
+    <script>
+        const codeElement = document.getElementById("code");
+        const spans = codeElement.getElementsByTagName("span");
+        const timeElement = document.getElementById("time");
+
+        function getCurrentTime() {
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const seconds = now.getSeconds().toString().padStart(2, '0');
+            return `${hours}:${minutes}:${seconds}`;
+        }
+    
+        function generateCode() {
+            const timeString = getCurrentTime();
+    
+            for (let i = 0; i < spans.length; i++) {
+                spans[i].textContent = timeString[i % timeString.length];
+                spans[i].style.animationDuration = `${Math.random() + 5.5}s`;
+                spans[i].style.color = `hsl(${Math.random() * 360}, 100%, 50%)`;
+            }
+        }
+    
+        function updateTime() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = (now.getMonth() + 1).toString().padStart(2, '0');
+            const day = now.getDate().toString().padStart(2, '0');
+            const timeString = getCurrentTime();
+            timeElement.textContent = `${year}-${month}-${day} __ ${timeString}`;  // 修改这里
+        }
+    
+        setInterval(generateCode, 5500);
+        setInterval(updateTime, 1000);
+    
+        generateCode();
+        updateTime();
+    </script>
+</body>
+</html>
