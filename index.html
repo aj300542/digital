@@ -1,162 +1,370 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>黑客帝国电脑屏幕</title>
-    <style>
+<html>
 
-        #aboutme {
-            position: fixed;
-            down: 50px;
-            right: 10px;
-            padding: 7px;
-            background-color: #000000;
-            color: #fff;
-            cursor: pointer;
-        }
-    </style> 
+<head>
+    <title>时钟clock</title>
+    <script src="html/wakelock.js"></script>
+    <link rel="shortcut icon" href="html/neo_128x128.ico">
     <style>
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
+        body {
+            margin: 0;
+            background: transparent;
+            overflow: hidden;
+            font-family: sans-serif;
+            background: transparent;
+        }
+
+        #div1 {
+            position: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            top: 50%;
+            left: 50%;
+            width: 20vh;
+            height: 10vh;
+            padding: 5vh;
+            border: 0px solid #aaaaaa;
+            z-index: 999999;
+            transform: translate(-260%, 20%);
+            z-index: 49;
+        }
+
+        #tip {
+            position: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            top: 50%;
+            left: 50%;
+            width: 20vh;
+            height: 10vh;
+            padding: 5vh;
+            border: 1px solid #740097;
+            z-index: 49;
+            transform: translate(-260%, 20%);
+        }
+
+
+        #content2 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100vw;
+            height: 100vh;
+            margin: 0 auto;
+            padding: 0%;
+            background: linear-gradient(rgba(0, 0, 24, 0.26), rgba(10, 23, 36, 0.281), rgba(11, 25, 31, 0.159), rgba(4, 8, 10, 0.136)), url('html/bac_2.jpg');
+            background-size: cover;
+            background-position: center;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            animation: zoomBackground 30s linear infinite;
+        }
+
+        @keyframes zoomBackground {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        #content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100vw;
+            height: 100vh;
+            margin: 0 auto;
+            padding: 0%;
+            background: transparent;
+            background-size: cover;
+            background-position: center;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            animation: zoomBackground 30s linear infinite;
+        }
+
+        #content2::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: rgba(0, 0, 0, 0.1);
+            /* 半透明的颜色层 */
+            backdrop-filter: blur(2px);
+            /* 模糊滤镜 */
+            z-index: -2;
+        }
+
+        .no-blur::after {
+            backdrop-filter: none;
+        }
+    </style>
+
+    <style>
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
         @font-face {
-            font-family: 'DSEG07Modern';
-            src: url('fonts/DSEG7Modern-Light.woff2') format('woff2'),
-                 url('fonts/DSEG7Modern-Light.woff') format('woff'),
-                 url('fonts/DSEG7Modern-Light.ttf') format('truetype');
+            font-family: 'Nixiebold-bold';
+            src: url('html/Nixiebold-bold.woff2') format('woff2'),
+                url('html/Nixiebold-bold.woff') format('woff'),
+                url('html/Nixiebold-bold.ttf') format('truetype');
             font-weight: normal;
             font-style: normal;
         }
 
-        /* 隐藏滚动条 */
-        ::-webkit-scrollbar {
-            display: none;
-        }
-    
-        /* 防止页面出现滚动抖动 */
-        html, body {
-            overflow: -moz-scrollbars-none;
-            -ms-overflow-style: none;
-        }
-
         body {
-
-            font-size: 48px;
-            background-color: #000;
-            color: rgb(224, 175, 68);
-            font-family: 'DSEG07Modern', Arial, sans-serif;
             margin: 0;
             padding: 0;
-        }
-
-        #container {
-            width: 100vw;
-            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-        }
-    #code {
-    position: relative;
-    top: 50px; /* 调整垂直位置 */    
-    font-size: 54px;
-    text-align: center;
-    }
-
-    #code span {
-
-    display: inline-block;
-    width: 100px;
-    height: 100px;
-    border: 1px solid #835117;
-    border-radius: 50%;
-    margin: 0 20px;
-    animation: fall 1s linear infinite;
-    color: hsl(calc(360 * var(--i) / 6), 100%, 50%);
-    line-height: 100px;
-    text-align: center;
-    vertical-align: middle; 
-    }
-        
-
-        @keyframes fall {
-            from {
-                transform: translateY(-250px);
-                opacity: 0;
-            }
-
-            to {
-                transform: translateY(250px);
-                opacity: 1;
-            }
+            height: 100%;
+            margin: 0 auto;
+            padding: 0%;
+            background-color: transparent;
+            overflow: hidden;
         }
 
-        #time {
-            position: absolute;
-            bottom: 0;
+        .iframe-container {
+            display: flex;
+            justify-content: center;
+            width: 200%;
+            transform: scale(1, 1.2);
+        }
+
+        .iframe-container iframe {
             width: 100%;
-            text-align: center;
-            padding: 40px;
-            font-size: 24px;
-            color: #fb7c00;
+            height: 100vh;
+            transform: scale(1);
+            border: 0px solid black;
+            margin: 0px;
+            overflow: hidden;
+            transition: opacity 6s;
+        }
+
+        .iframe-container iframe:nth-child(1) {
+            animation: move 45s infinite;
+        }
+
+        .iframe-container iframe:nth-child(2) {
+            animation: move 42.5s infinite;
+        }
+
+        .iframe-container iframe:nth-child(3) {
+            animation: move 39s infinite;
+        }
+
+        .iframe-container iframe:nth-child(4) {
+            animation: move 43.5s infinite;
+        }
+
+        @keyframes move {
+            0% {
+                transform: translateY(0) translateX(0);
+            }
+
+            50% {
+                transform: translateY(166px) translateX(64px);
+            }
+
+            100% {
+                transform: translateY(0) translateX(0);
+            }
+        }
+
+
+        .secondonenumber {
+            position: absolute;
+            display: flex;
+            flex-direction: row;
+            margin: 0 auto;
+            padding: 0%;
+            top: 63%;
+            right: 1%;
+            transform: scale(1, 1.15);
+            transform-origin: 50% 50%;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Nixiebold-bold', Arial, sans-serif;
+            font-size: 7vh;
+            color: #00cc66;
+            mix-blend-mode: screen;
+            opacity: 0.5;
+            z-index: 99;
+        }
+
+
+        .ui-buttons {
+            position: fixed;
+            bottom: 3vh;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 2vw;
+            z-index: 9;
+            pointer-events: auto;
+        }
+
+        .ui-buttons button {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #00cc66;
+            border: none;
+            padding: 1vh 2vh;
+            font-size: 1.5vh;
+            border-radius: 0.5vh;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .ui-buttons button:hover {
+            background-color: rgba(0, 0, 0, 0.8);
         }
     </style>
-</head>
-<body>
-    <a href="https://aj300542.github.io/">
-        <button id="aboutme"><span style="color:rgb(68, 44, 16)">aj</span></button>
-    </a>
-    <div id="container">
-        <div id="code">
-            <span style="--i: 0;"></span>
-            <span style="--i: 1;"></span>
-            <span style="--i: 2;"></span>
-            <span style="--i: 3;"></span>
-            <span style="--i: 4;"></span>
-            <span style="--i: 5;"></span>
-            <span style="--i: 6;"></span>
-            <span style="--i: 5;"></span>
 
+
+
+</head>
+
+<body>
+    <div id="content2">
+        <div id="content">
+            <div class="iframe-container">
+                <iframe id="sz-hours-tens" src="html/0.html"></iframe>S
+                <iframe id="sz-hours-ones" src="html/0.html"></iframe>
+                <iframe id="sz-minutes-tens" src="html/0.html"></iframe>
+                <iframe id="sz-minutes-ones" src="html/0.html"></iframe>
+            </div>
+            <div class="secondonenumber">
+                <div id="sz-seconds-tens"></div>
+                <div id="sz-seconds-ones"></div>
+            </div>
         </div>
     </div>
-
-    <div id="time"></div>
-
+    <div class="ui-buttons">
+        <button id="about-button">aj300</button>
+        <button id="fullscreen-button">fullscreen</button>
+    </div>
     <script>
-        const codeElement = document.getElementById("code");
-        const spans = codeElement.getElementsByTagName("span");
-        const timeElement = document.getElementById("time");
-
-        function getCurrentTime() {
-            const now = new Date();
-            const hours = now.getHours().toString().padStart(2, '0');
-            const minutes = now.getMinutes().toString().padStart(2, '0');
-            const seconds = now.getSeconds().toString().padStart(2, '0');
-            return `${hours}:${minutes}:${seconds}`;
+        function zoomPage() {
+            // 在页面加载时放大页面
+            document.getElementsByTagName('countdown-Wrapper')[0].style.transform = 'scale(1.25)';
         }
-    
-        function generateCode() {
-            const timeString = getCurrentTime();
-    
-            for (let i = 0; i < spans.length; i++) {
-                spans[i].textContent = timeString[i % timeString.length];
-                spans[i].style.animationDuration = `${Math.random() + 5.5}s`;
-                spans[i].style.color = `hsl(${Math.random() * 360}, 100%, 50%)`;
+
+        function toggleFullScreen() {
+            var elem = document.getElementById("content");
+
+            if (!document.fullscreenElement) {
+                if (elem.requestFullscreen) {
+                    elem.requestFullscreen();
+                } else if (elem.mozRequestFullScreen) { /* Firefox */
+                    elem.mozRequestFullScreen();
+                } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+                    elem.webkitRequestFullscreen();
+                } else if (elem.msRequestFullscreen) { /* IE/Edge */
+                    elem.msRequestFullscreen();
+                }
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.mozCancelFullScreen) { /* Firefox */
+                    document.mozCancelFullScreen();
+                } else if (document.webkitExitFullscreen) { /* Chrome, Safari and Opera */
+                    document.webkitExitFullscreen();
+                } else if (document.msExitFullscreen) { /* IE/Edge */
+                    document.msExitFullscreen();
+                }
             }
         }
-    
-        function updateTime() {
-            const now = new Date();
-            const year = now.getFullYear();
-            const month = (now.getMonth() + 1).toString().padStart(2, '0');
-            const day = now.getDate().toString().padStart(2, '0');
-            const timeString = getCurrentTime();
-            timeElement.textContent = `${year}-${month}-${day} __ ${timeString}`;  // 修改这里
-        }
-    
-        setInterval(generateCode, 5500);
-        setInterval(updateTime, 1000);
-    
-        generateCode();
-        updateTime();
     </script>
+    <script>
+        setInterval(function () {
+            var date = new Date();
+            var seconds = date.getSeconds();
+            var opacity = 1;
+
+            if (seconds >= 54 && seconds <= 60) {
+                opacity = 0.05;
+            }
+
+            var iframes = document.querySelectorAll('.iframe-container iframe');
+            for (var i = 0; i < iframes.length; i++) {
+                iframes[i].style.opacity = opacity;
+            }
+        }, 1000);
+    </script>
+    <script>
+        function szDisplayNumber(id, number) {
+            if (id.startsWith('hours') || id.startsWith('minutes')) {
+                document.getElementById('sz-' + id).src = 'html/' + number + '.html';
+            } else {
+                document.getElementById('sz-' + id).innerText = number;
+            }
+        }
+        function szDisplayTimeHoursAndMinutes() {
+            const now = new Date();
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            szDisplayNumber('hours-tens', Math.floor(hours / 10));
+            szDisplayNumber('hours-ones', hours % 10);
+            szDisplayNumber('minutes-tens', Math.floor(minutes / 10));
+            szDisplayNumber('minutes-ones', minutes % 10);
+
+            // 计算到下一分钟开始的时间差
+            const seconds = now.getSeconds();
+            const millisecondsToNextMinute = (60 - seconds) * 1000;
+            setTimeout(szDisplayTimeHoursAndMinutes, millisecondsToNextMinute);
+        }
+
+        function szDisplayTimeSeconds() {
+            const now = new Date();
+            let seconds = now.getSeconds();
+
+            szDisplayNumber('seconds-tens', Math.floor(seconds / 10));
+            szDisplayNumber('seconds-ones', seconds % 10);
+
+            const milliseconds = now.getMilliseconds();
+            setTimeout(szDisplayTimeSeconds, 1000 - milliseconds);
+        }
+        window.onload = function () {
+            szDisplayTimeHoursAndMinutes();
+            szDisplayTimeSeconds();
+        };
+
+    </script>
+    <script>
+        document.getElementById("fullscreen-button").addEventListener("click", () => {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                document.exitFullscreen();
+            }
+        });
+
+        document.getElementById("about-button").addEventListener("click", () => {
+            window.open("https://aj300542.github.io/", "_blank");
+        });
+    </script>
+
 </body>
+
 </html>
