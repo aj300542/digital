@@ -1,0 +1,63 @@
+body {
+    margin: 0;
+    background: transparent;
+    overflow: hidden;
+    font-family: sans-serif;
+    background: transparent;
+}
+
+.ants {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+.ant {
+    position: absolute;
+    width: 8vh;
+    height: 0.5vh;
+    background: linear-gradient(to right, #00ff99, #0077cc);
+    border-radius: 0.3vh;
+    pointer-events: none;
+    transform-origin: center center;
+}
+
+.ant.energized {
+    background: linear-gradient(to right, #00ccff, #00ffff);
+    animation: pulseGlow 1.6s ease-in-out infinite;
+}
+
+@keyframes pulseGlow {
+
+    0%,
+    100% {
+        opacity: 0.5;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+
+.controls {
+    position: absolute;
+    bottom: 2vh;
+    left: 2vh;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 1.2vh 2vh;
+    border-radius: 1vh;
+    font-size: 1.4vh;
+    opacity: 0;
+}
+
+input[type="range"] {
+    width: 20vh;
+}
+
+#antCountDisplay {
+    margin-left: 1vh;
+    font-weight: bold;
+}
